@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="on_touch" color="#ff0004"/>
+ <objecttype name="timer" color="#0cff00"/>
+ <objecttype name="on_load" color="#ffb700"/>
+ <objecttype name="render" color="#6800a4"/>
+</objecttypes>
