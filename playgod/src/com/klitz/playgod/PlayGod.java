@@ -112,7 +112,7 @@ public class PlayGod implements ApplicationListener {
 				/*
 				 * Render alle Objekte , deren Koordinaten im sichtbaren Bereich liegen. (alle anderen nicht)
 				 */
-				if(localPosX >= -TILESIZE*2 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*2 && localPosY <= h+TILESIZE){ 
+				if(localPosX >= -TILESIZE*4 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*4 && localPosY <= h+TILESIZE){ 
 					int l_layerPointer = level.layer1[x][y];
 					if(l_layerPointer >= 0){
 						batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
@@ -147,7 +147,7 @@ public class PlayGod implements ApplicationListener {
 				/*
 				 * Render alle Objekte , deren Koordinaten im sichtbaren Bereich liegen. (alle anderen nicht)
 				 */
-				if(localPosX >= -TILESIZE*2 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*2 && localPosY <= h+TILESIZE){ 
+				if(localPosX >= -TILESIZE*4 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*4 && localPosY <= h+TILESIZE){ 
 					
 					int l_layerPointer = level.layer2[x][y];
 					if(l_layerPointer >= 0){

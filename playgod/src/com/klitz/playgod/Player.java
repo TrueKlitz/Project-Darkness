@@ -86,8 +86,10 @@ public class Player extends PlayGod{
 			}
 		}
 		if(can_move){
-			setPositionX(l_playerNewX);
-			setPositionY(l_playerNewY);
+			if(l_playerNewX >= 0 && l_playerNewY >= 0 && l_playerNewX < level.getWidth() && l_playerNewY < level.getHeight()){
+				setPositionX(l_playerNewX);
+				setPositionY(l_playerNewY);
+			}
 		}
 	}
 }
