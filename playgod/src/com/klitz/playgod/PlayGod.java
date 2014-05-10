@@ -50,7 +50,7 @@ public class PlayGod implements ApplicationListener {
 		batch = new SpriteBatch();
 		srender = new ShapeRenderer();
 
-		level.load("data/level/test.tmx");
+		level.load("data/level/darkness_index.tmx");
 		
 		textures.load();
 		textures.loadTiles(level.tileset);
@@ -60,10 +60,10 @@ public class PlayGod implements ApplicationListener {
 		
 		level.load_collision(textures.rTileCollision);
 		
-		for(int i = 0; i < level.script.length; i++){
-			level.script[i].execute_onload();
+		for(int i = 0; i < level.script_master.length; i++){
+			level.script_master[i].execute_onload();
 		}
-		Gdx.app.log(""+this, level.script[0].content +"" );
+		Gdx.app.log(""+this, level.script_master[0].getTyp() + "" );
 	}
 
 	@Override
@@ -172,24 +172,6 @@ public class PlayGod implements ApplicationListener {
 				
 			}
 		}
-		for(int x = 0 ;x < level.getWidth() ; x++){
-			for(int y = 0 ;y < level.getHeight() ; y++){
-				
-				float localPosX = (float) ( (x) * (TILESIZE*scale)) - camera.getCamPosX();
-				float localPosY = (float) h -(y * (TILESIZE*scale)) - (TILESIZE*scale) - camera.getCamPosY();
-				/*
-				 * Render alle Objekte , deren Koordinaten im sichtbaren Bereich liegen. (alle anderen nicht)
-				 */
-				if(localPosX >= -TILESIZE*2 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*2 && localPosY <= h+TILESIZE){
-					if( (level.collision[x][y] == 2) ){
-						srender.begin(ShapeType.Filled);
-							srender.setColor(0,1, 0, 0.6f);
-							srender.rect(localPosX, localPosY, TILESIZE*scale, TILESIZE*scale);
-						srender.end();
-					}
-				}
-			}
-		}
 		batch.end();
 	}
 	
@@ -222,8 +204,7 @@ public class PlayGod implements ApplicationListener {
 		consoleUpdate += deltaTime;
 		
 		if(consoleUpdate >= 1.0){
-			Gdx.app.log(""+this, deltaTime*1000.0 + " ms per frame");
-			Gdx.app.log(""+this, batch.renderCalls +  "");
+			Gdx.app.log(""+this, deltaTime*1000.0 + " ms per frame");;
 			consoleUpdate = 0.0;
 		}
 		

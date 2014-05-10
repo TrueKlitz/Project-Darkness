@@ -87,7 +87,6 @@ public class Textures {
 			collisionTemp = l_CollisionString.split(",");
 			for(int i = 0 ; i < width*height ;i++){
 				rTileCollision[i] = (short) (Short.parseShort( collisionTemp[i] ) - lsubstractCollision + 1 /* +1 um der "-1 Falle" zu entgehen :D */);
-				Gdx.app.log(""+ this, rTileCollision[i] + " id:" + i);
 			}
 			rTileCollision[0] = 0;
 			

@@ -20,7 +20,11 @@ public class Level extends PlayGod{
 	public short[][] layer3;
 	public short[][] layer4;
 	public short[][] collision;
-	public Script[] script;
+	public Script[] script_master;
+	public Script[] script_onload;
+	public Script[] script_ontouch;
+	public Script[] script_render;
+	public Script[] script_ontimer;
 
 	/*
 	 *Minimale Levelgröße : 32x32 ,damit Kamera richtig funktioniert!
@@ -143,16 +147,9 @@ public class Level extends PlayGod{
 				if( layer4[x][y] >= 0 &&  texture_data[ layer4[x][y] ] == 2){
 					collision[x][y] = 2;
 				}
-				//Gdx.app.log(""+this, collision[x][y] + "");
 			}
 		}
-		for(int x = 0; x < width;x++){
-			String debug_message = "";
-			for(int y = 0; y < height;y++){
-				debug_message = debug_message + " " + collision[y][x];
-			}
-			Gdx.app.log(""+this, debug_message + "");
-		}
+
 	}
 
 	public void load_scripts(String level){
@@ -161,11 +158,11 @@ public class Level extends PlayGod{
 		try {
 			root = reader.parse(handle);
 
-			Gdx.app.log(""+this,tileset  + " is the used tileset");
+			
 			
 			Element scripts = root.getChildByName("objectgroup");
 			
-			script = new Script[ scripts.getChildCount() ];
+			script_master = new Script[ scripts.getChildCount() ];
 			for(int i = 0; i < scripts.getChildCount();i++){
 				Element l_script = scripts.getChild(i);
 				Rectangle r_ = new Rectangle();
@@ -177,12 +174,32 @@ public class Level extends PlayGod{
 				for(int ii = 0;ii < l_script.getChildByName("properties").getChildCount();ii++){
 					content = content + l_script.getChildByName("properties").getChild(ii).getAttribute("value") + ";";
 				}
-				script[i] = new Script( r_ , l_script.getAttribute("name"), l_script.getAttribute("type"), content );
+				script_master[i] = new Script( r_ , l_script.getAttribute("name"), l_script.getAttribute("type"), content );
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		int l_ScriptOL = 0;
+		int l_ScriptOTO = 0;
+		int l_ScriptOTI = 0;
+		int l_ScriptR = 0;
+		for(int i = 0; i < script_master.length ; i++){
+			Gdx.app.log(""+this, script_master[i].getTyp()+"");
+			if(script_master[i].getTyp().equals("on_load") ){
+				l_ScriptOL++;
+			}
+			if(script_master[i].getTyp().equals("on_touch") ){
+				l_ScriptOTO++;
+			}
+			if(script_master[i].getTyp().equals("on_timer") ){
+				l_ScriptOTI++;
+			}
+			if(script_master[i].getTyp().equals("render") ){
+				l_ScriptR++;
+			}
+		}
+		
 	}
 	
 	public int getWidth() {
