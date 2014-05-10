@@ -21,7 +21,7 @@ public class Level extends PlayGod{
 	public short[][] layer4;
 	public short[][] collision;
 	public Script[] script_master;
-	public Script[] script_onload;
+	public ScriptOnLoad[] script_onload;
 	public Script[] script_ontouch;
 	public Script[] script_render;
 	public Script[] script_ontimer;
@@ -180,12 +180,12 @@ public class Level extends PlayGod{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		int l_ScriptOL = 0;
 		int l_ScriptOTO = 0;
 		int l_ScriptOTI = 0;
 		int l_ScriptR = 0;
 		for(int i = 0; i < script_master.length ; i++){
-			Gdx.app.log(""+this, script_master[i].getTyp()+"");
 			if(script_master[i].getTyp().equals("on_load") ){
 				l_ScriptOL++;
 			}
@@ -199,6 +199,33 @@ public class Level extends PlayGod{
 				l_ScriptR++;
 			}
 		}
+		script_onload = new ScriptOnLoad[l_ScriptOL];
+		script_ontouch = new Script[l_ScriptOTO];
+		script_ontimer = new Script[l_ScriptOTI];
+		script_render = new Script[l_ScriptR];
+		l_ScriptOL = 0;
+		l_ScriptOTO = 0;
+		l_ScriptOTI = 0;
+		 l_ScriptR = 0;
+		for(int i = 0; i < script_master.length ; i++){
+			if(script_master[i].getTyp().equals("on_load") ){
+				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent());
+				l_ScriptOL++;
+			}
+			if(script_master[i].getTyp().equals("on_touch") ){
+				script_ontouch[l_ScriptOTO] = script_master[i];
+				l_ScriptOTO++;
+			}
+			if(script_master[i].getTyp().equals("on_timer") ){
+				script_ontimer[l_ScriptOTI] = script_master[i];
+				l_ScriptOTI++;
+			}
+			if(script_master[i].getTyp().equals("render") ){
+				script_render[l_ScriptR] = script_master[i];
+				l_ScriptR++;
+			}
+		}
+		script_master = null;
 		
 	}
 	

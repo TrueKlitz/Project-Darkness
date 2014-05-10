@@ -1,6 +1,5 @@
 package com.klitz.playgod;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Player extends PlayGod{

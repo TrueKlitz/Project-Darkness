@@ -1,5 +1,6 @@
 package com.klitz.playgod;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Script extends PlayGod{
@@ -50,8 +51,16 @@ public class Script extends PlayGod{
 		content = content_;
 	}
 	
-	public void execute_onload(){
-		
+	public void runScript(String[] commandos){
+		for(int i = 0; i < commandos.length;i++){
+			Gdx.app.log(""+this, commandos[i] +  " ");
+			if(commandos[i].contains("teleport_player")){
+				float l_x = Float.parseFloat(commandos[i].split(" ")[1]);
+				float l_y = Float.parseFloat(commandos[i].split(" ")[1]);
+				PlayGod.player.setPositionX( l_x );
+				PlayGod.player.setPositionY( l_y );
+			}
+		}
 	}
 
 }

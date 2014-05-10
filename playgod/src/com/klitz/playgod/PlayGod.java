@@ -1,19 +1,16 @@
 package com.klitz.playgod;
 
-import java.awt.Point;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class PlayGod implements ApplicationListener {
 
 	private SpriteBatch batch;
 	
-	public Player player;
+	public static Player player;
 	public Textures textures;
 	public Level level;
 	public Camera camera;
@@ -60,10 +57,10 @@ public class PlayGod implements ApplicationListener {
 		
 		level.load_collision(textures.rTileCollision);
 		
-		for(int i = 0; i < level.script_master.length; i++){
-			level.script_master[i].execute_onload();
+		for(int i = 0; i < level.script_onload.length; i++){
+			level.script_onload[i].execute();
 		}
-		Gdx.app.log(""+this, level.script_master[0].getTyp() + "" );
+		Gdx.app.log(""+this, level.script_onload[0].getContent() + "" );
 	}
 
 	@Override
