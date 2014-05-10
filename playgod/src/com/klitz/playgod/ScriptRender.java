@@ -2,9 +2,9 @@ package com.klitz.playgod;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class ScriptOnLoad extends Script{
+public class ScriptRender extends Script{
 
-	public ScriptOnLoad(Rectangle position_, String name_, String typ_,String content_, PlayGod playgod_) {
+	public ScriptRender(Rectangle position_, String name_, String typ_,String content_,PlayGod playgod_) {
 		super(position_, name_, typ_, content_, playgod_);
 	}
 	String l_script = this.getContent();

@@ -2,19 +2,21 @@ package com.klitz.playgod;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Player extends PlayGod{
+public class Player{
 	
 	private float positionX,positionY;
 	private float movementSpeed = 3.0f;
 	private int height = 0;
+	private PlayGod playgod;
 
 	private Texture texture;
 	private int movementState;
 	
-	public Player(float posx,float posy, Texture playertexture){
+	public Player(float posx,float posy, Texture playertexture, PlayGod playgod_){
 		positionX = posx;
 		positionY = posy;
 		texture = playertexture;
+		playgod = playgod_;
 	} 
 	
 	public int getHeight() {
@@ -74,7 +76,7 @@ public class Player extends PlayGod{
 			for(int y = l_playerNewYToInt -2 ;y <= l_playerNewYToInt + 2  ; y++){
 				if(x >= 0 && x < level.getHeight() && y >= 0 && x < level.getWidth() ){
 					if( 
-						boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, 
+						playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, 
 						x +0.0f, y +0.0f, x + 1.0f , y +1.0f )
 					){
 						if((level.collision[x][y] == 2)){

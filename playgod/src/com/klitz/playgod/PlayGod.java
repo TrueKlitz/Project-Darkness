@@ -4,30 +4,27 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class PlayGod implements ApplicationListener {
 
 	private SpriteBatch batch;
 	
-	public static Player player;
-	public Textures textures;
-	public Level level;
+	private Player player;
+	private Textures textures;
+	private Level level;
 	public Camera camera;
 	public Input input;
 
 	private static float VIEWDISTANCE = 20.0f;
+	private static int TICKSPERSECOND = 20;
+	protected static int TILESIZE = 32;
+	
 	private int w,h;
 	private float scale;
-	protected static int TILESIZE = 32;
 	private long lastTime;
 	private double deltaTime;
 	
-	ShapeRenderer srender ;
 	
-	public static int getTILESIZE() {
-		return TILESIZE;
-	}
 
 	@Override
 	public void create() {
@@ -41,11 +38,10 @@ public class PlayGod implements ApplicationListener {
 		
 		
 		textures = new Textures();
-		level = new Level();
+		level = new Level(this);
 		camera = new Camera(0,0);
 		input = new Input(Gdx.app.getType());
 		batch = new SpriteBatch();
-		srender = new ShapeRenderer();
 
 		level.load("data/level/darkness_index.tmx");
 		
@@ -53,14 +49,13 @@ public class PlayGod implements ApplicationListener {
 		textures.loadTiles(level.tileset);
 		
 		
-		player = new Player(16.0f,16.0f,textures.tPlayer);
+		player = new Player(16.0f,16.0f,textures.tPlayer,this);
 		
 		level.load_collision(textures.rTileCollision);
 		
 		for(int i = 0; i < level.script_onload.length; i++){
 			level.script_onload[i].execute();
 		}
-		Gdx.app.log(""+this, level.script_onload[0].getContent() + "" );
 	}
 
 	@Override
@@ -72,7 +67,7 @@ public class PlayGod implements ApplicationListener {
 	
 	@Override
 	public void render() {	
-		getDeltaTime();
+		DeltaTime();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
@@ -193,7 +188,7 @@ public class PlayGod implements ApplicationListener {
 
 	private double consoleUpdate;
 	
-	private void getDeltaTime(){
+	private void DeltaTime(){
 		
 		deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
 		lastTime = System.nanoTime();
@@ -221,5 +216,21 @@ public class PlayGod implements ApplicationListener {
 
 	@Override
 	public void resume() {
+	}
+	
+	public static int getTILESIZE() {
+		return TILESIZE;
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+
+	public Textures getTextures() {
+		return textures;
+	}
+
+	public Level getLevel() {
+		return level;
 	}
 }

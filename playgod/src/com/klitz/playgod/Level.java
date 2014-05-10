@@ -8,11 +8,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
-public class Level extends PlayGod{
+public class Level{
 	
 	XmlReader reader = new XmlReader();
 	
 	private int width,height;
+	private PlayGod playgod;
 
 	public String tileset;
 	public short[][] layer1;
@@ -22,13 +23,16 @@ public class Level extends PlayGod{
 	public short[][] collision;
 	public Script[] script_master;
 	public ScriptOnLoad[] script_onload;
-	public Script[] script_ontouch;
-	public Script[] script_render;
-	public Script[] script_ontimer;
+	public ScriptOnTouch[] script_ontouch;
+	public ScriptRender[] script_render;
+	public ScriptOnTimer[] script_ontimer;
 
 	/*
 	 *Minimale Levelgröße : 32x32 ,damit Kamera richtig funktioniert!
 	 */
+	public Level(PlayGod playgod_){
+		playgod = playgod_;
+	}
 	
 	public void load(String level){
 		FileHandle handle = Gdx.files.internal(level);
@@ -166,15 +170,15 @@ public class Level extends PlayGod{
 			for(int i = 0; i < scripts.getChildCount();i++){
 				Element l_script = scripts.getChild(i);
 				Rectangle r_ = new Rectangle();
-				r_.x = l_script.getIntAttribute("x") / TILESIZE;
-				r_.y = l_script.getIntAttribute("y") / TILESIZE;
-				r_.width = l_script.getIntAttribute("width") / TILESIZE;
-				r_.height = l_script.getIntAttribute("height") / TILESIZE;
+				r_.x = l_script.getIntAttribute("x") / PlayGod.TILESIZE;
+				r_.y = l_script.getIntAttribute("y") / PlayGod.TILESIZE;
+				r_.width = l_script.getIntAttribute("width") / PlayGod.TILESIZE;
+				r_.height = l_script.getIntAttribute("height") / PlayGod.TILESIZE;
 				String content = "";
 				for(int ii = 0;ii < l_script.getChildByName("properties").getChildCount();ii++){
 					content = content + l_script.getChildByName("properties").getChild(ii).getAttribute("value") + ";";
 				}
-				script_master[i] = new Script( r_ , l_script.getAttribute("name"), l_script.getAttribute("type"), content );
+				script_master[i] = new Script( r_ , l_script.getAttribute("name"), l_script.getAttribute("type"), content , playgod);
 			}
 			
 		} catch (IOException e) {
@@ -200,28 +204,28 @@ public class Level extends PlayGod{
 			}
 		}
 		script_onload = new ScriptOnLoad[l_ScriptOL];
-		script_ontouch = new Script[l_ScriptOTO];
-		script_ontimer = new Script[l_ScriptOTI];
-		script_render = new Script[l_ScriptR];
+		script_ontouch = new ScriptOnTouch[l_ScriptOTO];
+		script_ontimer = new ScriptOnTimer[l_ScriptOTI];
+		script_render = new ScriptRender[l_ScriptR];
 		l_ScriptOL = 0;
 		l_ScriptOTO = 0;
 		l_ScriptOTI = 0;
 		 l_ScriptR = 0;
 		for(int i = 0; i < script_master.length ; i++){
 			if(script_master[i].getTyp().equals("on_load") ){
-				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent());
+				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
 				l_ScriptOL++;
 			}
 			if(script_master[i].getTyp().equals("on_touch") ){
-				script_ontouch[l_ScriptOTO] = script_master[i];
+				script_ontouch[l_ScriptOTO] =  new ScriptOnTouch (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
 				l_ScriptOTO++;
 			}
 			if(script_master[i].getTyp().equals("on_timer") ){
-				script_ontimer[l_ScriptOTI] = script_master[i];
+				script_ontimer[l_ScriptOTI] =  new ScriptOnTimer (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
 				l_ScriptOTI++;
 			}
 			if(script_master[i].getTyp().equals("render") ){
-				script_render[l_ScriptR] = script_master[i];
+				script_render[l_ScriptR] =  new ScriptRender (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
 				l_ScriptR++;
 			}
 		}
