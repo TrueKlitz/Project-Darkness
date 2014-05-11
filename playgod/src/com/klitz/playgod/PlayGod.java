@@ -12,11 +12,12 @@ public class PlayGod implements ApplicationListener {
 	private Player player;
 	private Textures textures;
 	private Level level;
+	private float gameSpeed;
 	public Camera camera;
 	public Input input;
 
 	private static float VIEWDISTANCE = 20.0f;
-	private static int TICKSPERSECOND = 20;
+	private static int TICKSPERSECOND = 20; // 20 is normal
 	protected static int TILESIZE = 32;
 	
 	private int w,h;
@@ -56,6 +57,10 @@ public class PlayGod implements ApplicationListener {
 		for(int i = 0; i < level.script_onload.length; i++){
 			level.script_onload[i].execute();
 		}
+		for(int i = 0; i < level.script_onload.length; i++){
+			level.script_ontimer[i].load();
+		}
+		GameTick();
 	}
 
 	@Override
@@ -82,17 +87,17 @@ public class PlayGod implements ApplicationListener {
 		input.update();
 		
 		if(input.iskLeft()){
-			player.move((float) (player.getPositionX() - (player.getMovementSpeed() * deltaTime) ), (float) (player.getPositionY()), level);
+			player.move((float) (player.getPositionX() - (player.getMovementSpeed() * gameSpeed) ), (float) (player.getPositionY()), level);
 		}
 		
 		if(input.iskRight()){
-			player.move((float) (player.getPositionX() + (player.getMovementSpeed() * deltaTime) ), (float) (player.getPositionY()), level);
+			player.move((float) (player.getPositionX() + (player.getMovementSpeed() * gameSpeed) ), (float) (player.getPositionY()), level);
 		}
 		if(input.iskUp()){
-			player.move((float) (player.getPositionX()), (float) (player.getPositionY()  - (player.getMovementSpeed() * deltaTime)), level);
+			player.move((float) (player.getPositionX()), (float) (player.getPositionY()  - (player.getMovementSpeed() * gameSpeed)), level);
 		}
 		if(input.iskDown()){
-			player.move((float) (player.getPositionX()), (float) (player.getPositionY()  + (player.getMovementSpeed() * deltaTime)), level);
+			player.move((float) (player.getPositionX()), (float) (player.getPositionY()  + (player.getMovementSpeed() * gameSpeed)), level);
 		}
 		//
 		batch.begin();
@@ -205,10 +210,10 @@ public class PlayGod implements ApplicationListener {
 	private double consoleUpdate;
 	private double l_gametick;
 	private void DeltaTime(){
-		
+
 		deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
 		lastTime = System.nanoTime();
-		
+		gameSpeed = (float) (deltaTime * TICKSPERSECOND)/20.0f;
 		consoleUpdate += deltaTime;
 		l_gametick += deltaTime;
 		if(consoleUpdate >= 1.0){
@@ -258,5 +263,12 @@ public class PlayGod implements ApplicationListener {
 
 	public Level getLevel() {
 		return level;
+	}
+	public static int getTICKSPERSECOND() {
+		return TICKSPERSECOND;
+	}
+
+	public static void setTICKSPERSECOND(int tICKSPERSECOND) {
+		TICKSPERSECOND = tICKSPERSECOND;
 	}
 }

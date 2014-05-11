@@ -60,6 +60,7 @@ public class Script{
 		 * "teleport_player [x] [y]" teleports the player to the destination [x|y] !
 		 * "if [condition] [command] " checks for an condition ?
 		 * "load_level [level_name] " loads a new level ?
+		 * "gamespeed [tickspersecond]" changes game speed 
 		 */
 		for(int i = 0; i < commando.length;i++){
 			Gdx.app.log(""+this, commando[i] +  " ");
@@ -72,7 +73,10 @@ public class Script{
 				playgod.getTextures().loadTiles(playgod.getLevel().tileset);
 				playgod.getLevel().load_collision(playgod.getTextures().rTileCollision);
 				for(int ii = 0; ii < playgod.getLevel().script_onload.length; ii++){
-					playgod.getLevel().script_onload[i].execute();
+					playgod.getLevel().script_onload[ii].execute();
+				}
+				for(int ii = 0; ii < playgod.getLevel().script_ontimer.length; ii++){
+					playgod.getLevel().script_ontimer[ii].load();
 				}
 			}
 			if(commando[i].contains("teleport_player")){
@@ -80,6 +84,9 @@ public class Script{
 				float l_y = Float.parseFloat(commando[i].split(" ")[1]);
 				playgod.getPlayer().setPositionX( l_x );
 				playgod.getPlayer().setPositionY( l_y );
+			}
+			if(commando[i].contains("gamespeed")){
+				playgod.setTICKSPERSECOND( Integer.parseInt( commando[i].split(" ")[1] ));
 			}
 		}
 	}

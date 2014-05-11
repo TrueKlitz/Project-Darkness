@@ -148,13 +148,19 @@
 </data>
  </layer>
  <objectgroup name="script" width="32" height="32">
-  <object name="start_position" type="on_load" x="321" y="322" width="32" height="32">
+  <object name="start_position" type="on_load" x="320" y="288" width="32" height="32">
    <properties>
     <property name="1" value="teleport_player 10 10"/>
    </properties>
   </object>
-  <object name="load_level test" type="on_touch" x="485" y="295" width="20" height="21">
+  <object name="load_level test" type="on_touch" x="480" y="288" width="32" height="32">
    <properties>
+    <property name="1" value="load_level test"/>
+   </properties>
+  </object>
+  <object name="load_level test" type="on_timer" x="352" y="128" width="32" height="32">
+   <properties>
+    <property name="0(time param)" value="1"/>
     <property name="1" value="load_level test"/>
    </properties>
   </object>
