@@ -185,23 +185,49 @@ public class PlayGod implements ApplicationListener {
 			return false;
 		}
 	}
-
+	public boolean playerCollision
+	(
+		float object_2_x, float object_2_y, float object_2_endx, float object_2_endy
+	)
+	{
+		if(
+		(object_2_x < player.getPositionX() + 0.8f) && 
+		(object_2_endx > player.getPositionX() + 0.2f ) && 
+		(object_2_endy > player.getPositionY()  - 0.5f) && 
+		(object_2_y  < player.getPositionY() + 0.0f)
+		)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
 	private double consoleUpdate;
-	
+	private double l_gametick;
 	private void DeltaTime(){
 		
 		deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
 		lastTime = System.nanoTime();
 		
 		consoleUpdate += deltaTime;
-		
+		l_gametick += deltaTime;
 		if(consoleUpdate >= 1.0){
 			Gdx.app.log(""+this, deltaTime*1000.0 + " ms per frame");;
 			consoleUpdate = 0.0;
 		}
-		
+		if(l_gametick >= (1.0 / TICKSPERSECOND) ){
+			GameTick();
+			l_gametick = 0.0;
+		}
 	}
-	
+	private void GameTick(){
+		for(int i = 0; i < level.script_ontouch.length; i++){
+			level.script_ontouch[i].execute();
+		}
+		for(int i = 0; i < level.script_ontimer.length; i++){
+			level.script_ontimer[i].execute();
+		}
+	}
 	@Override
 	public void resize(int width, int height) {
 		/*w = Gdx.graphics.getWidth();

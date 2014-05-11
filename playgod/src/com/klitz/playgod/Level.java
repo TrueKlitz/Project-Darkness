@@ -139,17 +139,19 @@ public class Level{
 		for(int x = 0; x < width;x++){
 			for(int y = 0; y < height;y++){
 				collision[x][y] = 0;
-				if( layer1[x][y] >= 0 && texture_data[ layer1[x][y] ] == 2){
-					collision[x][y] = 2;
-				}
-				if( layer2[x][y] >= 0 &&  texture_data[ layer2[x][y] ] == 2){
-					collision[x][y] = 2;
-				}
-				if( layer3[x][y] >= 0 &&  texture_data[ layer3[x][y] ] == 2){
-					collision[x][y] = 2;
-				}
-				if( layer4[x][y] >= 0 &&  texture_data[ layer4[x][y] ] == 2){
-					collision[x][y] = 2;
+				for(short i = 1; i <= 8 ;i++){
+					if( layer1[x][y] >= 0 && texture_data[ layer1[x][y] ] == i){
+						collision[x][y] = i;
+					}
+					if( layer2[x][y] >= 0 &&  texture_data[ layer2[x][y] ] == i){
+						collision[x][y] = i;
+					}
+					if( layer3[x][y] >= 0 &&  texture_data[ layer3[x][y] ] == i){
+						collision[x][y] = i;
+					}
+					if( layer4[x][y] >= 0 &&  texture_data[ layer4[x][y] ] == i){
+						collision[x][y] = i;
+					}
 				}
 			}
 		}
@@ -170,10 +172,10 @@ public class Level{
 			for(int i = 0; i < scripts.getChildCount();i++){
 				Element l_script = scripts.getChild(i);
 				Rectangle r_ = new Rectangle();
-				r_.x = l_script.getIntAttribute("x") / PlayGod.TILESIZE;
-				r_.y = l_script.getIntAttribute("y") / PlayGod.TILESIZE;
-				r_.width = l_script.getIntAttribute("width") / PlayGod.TILESIZE;
-				r_.height = l_script.getIntAttribute("height") / PlayGod.TILESIZE;
+				r_.x = l_script.getIntAttribute("x") / (PlayGod.TILESIZE * 1.0f);
+				r_.y = l_script.getIntAttribute("y") /(PlayGod.TILESIZE * 1.0f);
+				r_.width = l_script.getIntAttribute("width") / (PlayGod.TILESIZE * 1.0f);
+				r_.height = l_script.getIntAttribute("height") / (PlayGod.TILESIZE * 1.0f);
 				String content = "";
 				for(int ii = 0;ii < l_script.getChildByName("properties").getChildCount();ii++){
 					content = content + l_script.getChildByName("properties").getChild(ii).getAttribute("value") + ";";

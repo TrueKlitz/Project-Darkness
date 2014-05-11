@@ -39,7 +39,7 @@ public class Script{
 		this.content = content;
 	}
 
-	private Rectangle position;
+	public Rectangle position;
 	private String name;
 	private String typ;
 	private String content;
@@ -71,6 +71,9 @@ public class Script{
 				playgod.getLevel().load(l_level);
 				playgod.getTextures().loadTiles(playgod.getLevel().tileset);
 				playgod.getLevel().load_collision(playgod.getTextures().rTileCollision);
+				for(int ii = 0; ii < playgod.getLevel().script_onload.length; ii++){
+					playgod.getLevel().script_onload[i].execute();
+				}
 			}
 			if(commando[i].contains("teleport_player")){
 				float l_x = Float.parseFloat(commando[i].split(" ")[1]);

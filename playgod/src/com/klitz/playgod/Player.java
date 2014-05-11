@@ -1,5 +1,6 @@
 package com.klitz.playgod;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Player{
@@ -79,8 +80,33 @@ public class Player{
 						playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, 
 						x +0.0f, y +0.0f, x + 1.0f , y +1.0f )
 					){
+						if((level.collision[x][y] == 1)){
+							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x + 0.25f, y + 0.25f, x + 0.75f , y + 0.75f )){
+								can_move = false;
+							}
+						}
 						if((level.collision[x][y] == 2)){
 							can_move = false;
+						}
+						if((level.collision[x][y] == 5)){
+							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.75f, x + 1.0f , y + 0.85f )){
+								can_move = false;
+							}
+						}
+						if((level.collision[x][y] == 6)){
+							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.0f, x + 1.0f , y + 0.25f )){
+								can_move = false;
+							}
+						}
+						if((level.collision[x][y] == 7)){
+							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.0f, x + 0.25f , y + 1.0f )){
+								can_move = false;
+							}
+						}
+						if((level.collision[x][y] == 8)){
+							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x + 0.75f, y + 0.0f, x + 1.0f , y + 1.0f )){
+								can_move = false;
+							}
 						}
 					}
 				}
