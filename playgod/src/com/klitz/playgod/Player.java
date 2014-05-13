@@ -1,25 +1,40 @@
 package com.klitz.playgod;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Player{
+public class Player extends Animator{
 	
 	private float positionX,positionY;
 	private float movementSpeed = 3.0f;
 	private int height = 0;
 	private PlayGod playgod;
 
-	private Texture texture;
+
 	private int movementState;
 	
 	public Player(float posx,float posy, Texture playertexture, PlayGod playgod_){
+		super(playertexture , 32 , 48, 2);
 		positionX = posx;
 		positionY = posy;
 		texture = playertexture;
 		playgod = playgod_;
 	} 
 	
+	public void AnimationUpdate(){
+		
+		this.animSpeed = (int)(10/movementSpeed);
+		if(can_move){
+		if( playgod.input.iskDown() ){this.setAnimationState(0);isAnimating = true;} 
+		if( playgod.input.iskRight() ){this.setAnimationState(2);isAnimating = true;} 
+		if( playgod.input.iskLeft() ){this.setAnimationState(1);isAnimating = true;}
+		if( playgod.input.iskUp() ){this.setAnimationState(3);isAnimating = true;}
+	
+		}
+		if(!playgod.input.iskDown() && !playgod.input.iskUp() && !playgod.input.iskLeft() && !playgod.input.iskRight()){ isAnimating = false; } 
+		
+		this.setTextureRegion();
+	}
 	public int getHeight() {
 		return height;
 	}
@@ -68,11 +83,12 @@ public class Player{
 		this.movementSpeed = movementSpeed;
 	}
 	
+	boolean can_move = true;
 	public void move(float l_playerNewX,float l_playerNewY, Level level){
 		int l_playerNewXToInt = (int)(l_playerNewX);
 		int l_playerNewYToInt = (int)(l_playerNewY);
 		
-		boolean can_move = true;
+		can_move = true;
 		for(int x = l_playerNewXToInt -2 ;x <= l_playerNewXToInt + 2 ; x++){
 			for(int y = l_playerNewYToInt -2 ;y <= l_playerNewYToInt + 2  ; y++){
 				if(x >= 0 && x < level.getHeight() && y >= 0 && x < level.getWidth() ){
@@ -119,5 +135,6 @@ public class Player{
 			}
 		}
 	}
+
 }
 

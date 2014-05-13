@@ -86,7 +86,7 @@ public class Script{
 				playgod.getPlayer().setPositionY( l_y );
 			}
 			if(commando[i].contains("gamespeed")){
-				playgod.setTICKSPERSECOND( Integer.parseInt( commando[i].split(" ")[1] ));
+				PlayGod.setTICKSPERSECOND( Integer.parseInt( commando[i].split(" ")[1] ));
 			}
 		}
 	}

@@ -57,7 +57,7 @@ public class PlayGod implements ApplicationListener {
 		for(int i = 0; i < level.script_onload.length; i++){
 			level.script_onload[i].execute();
 		}
-		for(int i = 0; i < level.script_onload.length; i++){
+		for(int i = 0; i < level.script_ontimer.length; i++){
 			level.script_ontimer[i].load();
 		}
 		GameTick();
@@ -134,8 +134,8 @@ public class PlayGod implements ApplicationListener {
 					}
 				}
 			}
-		}
-		batch.draw(player.getTexture(),(float) player.getPositionX()*scale*TILESIZE - camera.getCamPosX() ,h - (float) player.getPositionY()*scale*TILESIZE - camera.getCamPosY() ,32*scale,48*scale);
+		}	
+			batch.draw(player.tRegion,(float) player.getPositionX()*scale*TILESIZE - camera.getCamPosX() ,h - (float) player.getPositionY()*scale*TILESIZE - camera.getCamPosY() ,32*scale,48*scale);
 		for(int x = 0 ;x < level.getWidth() ;x++){
 			for(int y = 0 ;y < level.getHeight() ;y++){
 				
@@ -232,6 +232,7 @@ public class PlayGod implements ApplicationListener {
 		for(int i = 0; i < level.script_ontimer.length; i++){
 			level.script_ontimer[i].execute();
 		}
+		player.AnimationUpdate();
 	}
 	@Override
 	public void resize(int width, int height) {

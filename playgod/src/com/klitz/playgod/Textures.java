@@ -30,7 +30,7 @@ public class Textures {
 	
 	public void load(){
 		
-		tPlayer = new Texture(Gdx.files.internal("data/textures/player.png"));
+		tPlayer = new Texture(Gdx.files.internal("data/textures/player_test.png"));
 		
 	}
 	

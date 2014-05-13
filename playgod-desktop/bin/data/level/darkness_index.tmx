@@ -158,11 +158,5 @@
     <property name="1" value="load_level test"/>
    </properties>
   </object>
-  <object name="load_level test" type="on_timer" x="352" y="128" width="32" height="32">
-   <properties>
-    <property name="0(time param)" value="1"/>
-    <property name="1" value="load_level test"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>
