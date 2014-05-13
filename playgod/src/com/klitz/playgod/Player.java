@@ -24,13 +24,10 @@ public class Player extends Animator{
 	public void AnimationUpdate(){
 		
 		this.animSpeed = (int)(10/movementSpeed);
-		if(can_move){
 		if( playgod.input.iskDown() ){this.setAnimationState(0);isAnimating = true;} 
 		if( playgod.input.iskRight() ){this.setAnimationState(2);isAnimating = true;} 
 		if( playgod.input.iskLeft() ){this.setAnimationState(1);isAnimating = true;}
 		if( playgod.input.iskUp() ){this.setAnimationState(3);isAnimating = true;}
-	
-		}
 		if(!playgod.input.iskDown() && !playgod.input.iskUp() && !playgod.input.iskLeft() && !playgod.input.iskRight()){ isAnimating = false; } 
 		
 		this.setTextureRegion();
