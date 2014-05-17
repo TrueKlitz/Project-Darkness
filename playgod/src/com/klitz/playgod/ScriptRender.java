@@ -19,7 +19,7 @@ public class ScriptRender extends Script{
 	}
 	public void execute(){
 		
-		String aScript[] = l_script.split(";");
+		//String aScript[] = l_script.split(";");
 		
 		if(renderType.equals("color_change")){
 			

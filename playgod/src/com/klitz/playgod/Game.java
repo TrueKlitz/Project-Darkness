@@ -17,7 +17,7 @@ public class Game implements ApplicationListener {
 	private Input input;
 	private Render render;
 
-	protected static float VIEWDISTANCE = 20.0f;
+	protected static float VIEWDISTANCE = 16.0f;
 	protected static int TICKSPERSECOND = 20; // 20 is normal
 	protected static int TILESIZE = 32;
 	
@@ -45,7 +45,7 @@ public class Game implements ApplicationListener {
 		textures = new Textures();
 		level = new Level(this);
 		camera = new Camera(0,0);
-		input = new Input(Gdx.app.getType());
+		input = new Input(Gdx.app.getType(), this);
 		batch = new SpriteBatch();
 		render = new Render(batch, this);
 		level.load("data/level/darkness_index.tmx");
@@ -174,10 +174,11 @@ public class Game implements ApplicationListener {
 	}
 	@Override
 	public void resize(int width, int height) {
-		/*w = Gdx.graphics.getWidth();
+		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
-		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;*/
+		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
 		batch = new SpriteBatch();
+		render.onResize();
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.klitz.playgod;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Player extends Animator{
 	

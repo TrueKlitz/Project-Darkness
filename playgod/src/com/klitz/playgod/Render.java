@@ -1,16 +1,23 @@
 package com.klitz.playgod;
 
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 public class Render{
 
 	SpriteBatch batch;
 	Game game;
+	FrameBuffer fBuffer;
 	public Render(SpriteBatch batch_, Game game_){
 		batch = batch_;
 		game = game_;
+		fBuffer = new FrameBuffer(Format.RGBA8888, game.getW(), game.getH(), false);
 	}
 	public void draw(){
+
+		fBuffer.begin();
 		batch.begin();
 		for(int x = 0 ;x < game.getLevel().getWidth() ; x++){
 			for(int y = 0 ;y < game.getLevel().getHeight() ; y++){
@@ -81,5 +88,19 @@ public class Render{
 			}
 		}
 		batch.end();
+		fBuffer.end();
+		PostProcess();
+	}
+
+	Texture tPostProcess;
+	private void PostProcess(){
+
+		tPostProcess = fBuffer.getColorBufferTexture();
+		batch.begin();
+			batch.draw(tPostProcess, 0, 0, tPostProcess.getWidth(), tPostProcess.getHeight(), 0, 0, game.getW(), game.getH(), false, true);
+		batch.end();
+	}
+	public void onResize(){
+		fBuffer = new FrameBuffer(Format.RGBA8888, game.getW(), game.getH(), false);
 	}
 }

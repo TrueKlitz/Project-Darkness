@@ -7,7 +7,9 @@ public class Main {
 	public static void main(String[] args) {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "RPG";
-		cfg.useGL20 = false;
+		cfg.useGL20 = true;
+		cfg.resizable = false;
+		cfg.fullscreen = false;
 		cfg.width = 1280;// 20 tiles pro Bild |  480*2;
 		cfg.height = 720;// 11.25 tiles pro Bild| 320*2;
 		cfg.vSyncEnabled = true;

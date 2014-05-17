@@ -9,9 +9,11 @@ public class Input {
 	ApplicationType appType;
 	
 	private boolean kLeft,kRight,kUp,kDown;
+	Game game;
 	
-	public Input (ApplicationType at){
+	public Input (ApplicationType at,Game game_){
 		appType = at;
+		game = game_;
 	}
 	
 	public void update(){
@@ -20,6 +22,7 @@ public class Input {
 			if(Gdx.input.isKeyPressed(Keys.S)){kDown = true;}else {kDown = false;}
 			if(Gdx.input.isKeyPressed(Keys.A)){kLeft = true;}else {kLeft = false;}
 			if(Gdx.input.isKeyPressed(Keys.D)){kRight = true;}else {kRight = false;}
+			if(Gdx.input.isKeyPressed(Keys.ESCAPE)){Gdx.app.exit();}
 		}
 		if(appType == ApplicationType.Android){
 			update_android();
