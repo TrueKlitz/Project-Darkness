@@ -13,18 +13,22 @@ public class PlayGod implements ApplicationListener {
 	private Textures textures;
 	private Level level;
 	private float gameSpeed;
-	public Camera camera;
-	public Input input;
+	private Camera camera;
+	private Input input;
+	private Render render;
 
-	private static float VIEWDISTANCE = 20.0f;
-	private static int TICKSPERSECOND = 20; // 20 is normal
+	protected static float VIEWDISTANCE = 20.0f;
+	protected static int TICKSPERSECOND = 20; // 20 is normal
 	protected static int TILESIZE = 32;
 	
-	private int w,h;
+	private int w;
+
+	private int h;
 	private float scale;
 	private long lastTime;
 	private double deltaTime;
-	
+	private double consoleUpdate;
+	private double l_gametick;
 	
 
 	@Override
@@ -43,7 +47,7 @@ public class PlayGod implements ApplicationListener {
 		camera = new Camera(0,0);
 		input = new Input(Gdx.app.getType());
 		batch = new SpriteBatch();
-
+		render = new Render(batch, this);
 		level.load("data/level/darkness_index.tmx");
 		
 		textures.load();
@@ -59,6 +63,9 @@ public class PlayGod implements ApplicationListener {
 		}
 		for(int i = 0; i < level.script_ontimer.length; i++){
 			level.script_ontimer[i].load();
+		}
+		for(int i = 0; i < level.script_render.length; i++){
+			level.script_render[i].load();
 		}
 		GameTick();
 	}
@@ -100,76 +107,8 @@ public class PlayGod implements ApplicationListener {
 			player.move((float) (player.getPositionX()), (float) (player.getPositionY()  + (player.getMovementSpeed() * gameSpeed)), level);
 		}
 		//
-		batch.begin();
-		for(int x = 0 ;x < level.getWidth() ; x++){
-			for(int y = 0 ;y < level.getHeight() ; y++){
-				
-				float localPosX = (float) ( (x) * (TILESIZE*scale)) - camera.getCamPosX();
-				float localPosY = (float) h -(y * (TILESIZE*scale)) - (TILESIZE*scale) - camera.getCamPosY();
-				/*
-				 * Render alle Objekte , deren Koordinaten im sichtbaren Bereich liegen. (alle anderen nicht)
-				 */
-				if(localPosX >= -TILESIZE*4 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*4 && localPosY <= h+TILESIZE){ 
-					int l_layerPointer = level.layer1[x][y];
-					if(l_layerPointer >= 0){
-						batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-					}
-					l_layerPointer = level.layer2[x][y];
-					if(l_layerPointer >= 0){
-						if(y + textures.rTileHeight[ l_layerPointer ]  <=  player.getPositionY() + player.getHeight()){
-							batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-						}
-					}
-					l_layerPointer = level.layer3[x][y];
-					if(l_layerPointer >= 0){
-						if(y + textures.rTileHeight[ l_layerPointer  ]  <=  player.getPositionY() + player.getHeight()){
-							batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-						}
-					}
-					l_layerPointer = level.layer4[x][y];
-					if(l_layerPointer >= 0){
-						if(y + textures.rTileHeight[ l_layerPointer  ]   <=  player.getPositionY() + player.getHeight()){
-							batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-						}
-					}
-				}
-			}
-		}	
-			batch.draw(player.tRegion,(float) player.getPositionX()*scale*TILESIZE - camera.getCamPosX() ,h - (float) player.getPositionY()*scale*TILESIZE - camera.getCamPosY() ,32*scale,48*scale);
-		for(int x = 0 ;x < level.getWidth() ;x++){
-			for(int y = 0 ;y < level.getHeight() ;y++){
-				
-				float localPosX = (float) ( (x) * (TILESIZE*scale)) - camera.getCamPosX();
-				float localPosY = (float) h -(y * (TILESIZE*scale)) - (TILESIZE*scale) - camera.getCamPosY();
-				/*
-				 * Render alle Objekte , deren Koordinaten im sichtbaren Bereich liegen. (alle anderen nicht)
-				 */
-				if(localPosX >= -TILESIZE*4 && localPosX <= w+TILESIZE && localPosY >= -TILESIZE*4 && localPosY <= h+TILESIZE){ 
-					
-					int l_layerPointer = level.layer2[x][y];
-					if(l_layerPointer >= 0){
-						if(y + textures.rTileHeight[ l_layerPointer ]  >=  player.getPositionY() + player.getHeight()){
-							batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-						}
-					}
-					l_layerPointer = level.layer3[x][y];
-					if(l_layerPointer >= 0){
-						if(y + textures.rTileHeight[ l_layerPointer  ]  >=  player.getPositionY() + player.getHeight()){
-							batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-						}
-					}
-					l_layerPointer = level.layer4[x][y];
-					if(l_layerPointer >= 0){
-						if(y + textures.rTileHeight[ l_layerPointer  ]   >= player.getPositionY() + player.getHeight()){
-							batch.draw(textures.rTile[ l_layerPointer ], localPosX , localPosY, 0, 0, TILESIZE, TILESIZE, scale, scale, 0);
-						}
-					}
-
-				}
-				
-			}
-		}
-		batch.end();
+		render.draw();
+		
 	}
 	
 	public boolean boxCollision
@@ -207,8 +146,7 @@ public class PlayGod implements ApplicationListener {
 			return false;
 		}
 	}
-	private double consoleUpdate;
-	private double l_gametick;
+	
 	private void DeltaTime(){
 
 		deltaTime = (System.nanoTime() - lastTime) / 1000000000.0;
@@ -265,11 +203,132 @@ public class PlayGod implements ApplicationListener {
 	public Level getLevel() {
 		return level;
 	}
+	
 	public static int getTICKSPERSECOND() {
 		return TICKSPERSECOND;
 	}
 
 	public static void setTICKSPERSECOND(int tICKSPERSECOND) {
 		TICKSPERSECOND = tICKSPERSECOND;
+	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
+	}
+
+	public float getGameSpeed() {
+		return gameSpeed;
+	}
+
+	public void setGameSpeed(float gameSpeed) {
+		this.gameSpeed = gameSpeed;
+	}
+
+	public Camera getCamera() {
+		return camera;
+	}
+
+	public void setCamera(Camera camera) {
+		this.camera = camera;
+	}
+
+	public Input getInput() {
+		return input;
+	}
+
+	public void setInput(Input input) {
+		this.input = input;
+	}
+
+	public Render getRender() {
+		return render;
+	}
+
+	public void setRender(Render render) {
+		this.render = render;
+	}
+
+	public static float getVIEWDISTANCE() {
+		return VIEWDISTANCE;
+	}
+
+	public static void setVIEWDISTANCE(float vIEWDISTANCE) {
+		VIEWDISTANCE = vIEWDISTANCE;
+	}
+
+	public int getW() {
+		return w;
+	}
+
+	public void setW(int w) {
+		this.w = w;
+	}
+
+	public int getH() {
+		return h;
+	}
+
+	public void setH(int h) {
+		this.h = h;
+	}
+
+	public float getScale() {
+		return scale;
+	}
+
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+
+	public long getLastTime() {
+		return lastTime;
+	}
+
+	public void setLastTime(long lastTime) {
+		this.lastTime = lastTime;
+	}
+
+	public double getDeltaTime() {
+		return deltaTime;
+	}
+
+	public void setDeltaTime(double deltaTime) {
+		this.deltaTime = deltaTime;
+	}
+
+	public double getConsoleUpdate() {
+		return consoleUpdate;
+	}
+
+	public void setConsoleUpdate(double consoleUpdate) {
+		this.consoleUpdate = consoleUpdate;
+	}
+
+	public double getL_gametick() {
+		return l_gametick;
+	}
+
+	public void setL_gametick(double l_gametick) {
+		this.l_gametick = l_gametick;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public void setTextures(Textures textures) {
+		this.textures = textures;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public static void setTILESIZE(int tILESIZE) {
+		TILESIZE = tILESIZE;
 	}
 }

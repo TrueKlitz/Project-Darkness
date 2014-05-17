@@ -32,6 +32,7 @@ public class Animator {
 	public void setAnimationState(int animationState) {
 		this.animationState = animationState;
 	}
+
 	public void setTextureRegion(){
 		currentAnimSpeed ++;
 		if(currentAnimSpeed >= animSpeed && isAnimating){
@@ -39,7 +40,7 @@ public class Animator {
 			tRegion = new TextureRegion(this.texture , currentAnimState * tileHeight , tileWidth * animationState , tileHeight, tileWidth);
 			currentAnimSpeed = 0;
 			if(currentAnimState > maxAnimStates){
-				currentAnimState = 0;
+				currentAnimState = -1;
 			}
 		}
 		if(!isAnimating){
