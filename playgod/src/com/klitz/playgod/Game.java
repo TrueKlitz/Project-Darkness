@@ -64,9 +64,6 @@ public class Game implements ApplicationListener {
 		for(int i = 0; i < level.script_ontimer.length; i++){
 			level.script_ontimer[i].load();
 		}
-		for(int i = 0; i < level.script_render.length; i++){
-			level.script_render[i].load();
-		}
 		GameTick();
 	}
 

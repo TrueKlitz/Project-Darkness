@@ -24,8 +24,9 @@ public class Level{
 	public Script[] script_master;
 	public ScriptOnLoad[] script_onload;
 	public ScriptOnTouch[] script_ontouch;
-	public ScriptRender[] script_render;
 	public ScriptOnTimer[] script_ontimer;
+	
+	public RenderColorGradient[] renderGradient;
 
 	/*
 	 *Minimale Levelgröße : 32x32 ,damit Kamera richtig funktioniert!
@@ -190,7 +191,7 @@ public class Level{
 		int l_ScriptOL = 0;
 		int l_ScriptOTO = 0;
 		int l_ScriptOTI = 0;
-		int l_ScriptR = 0;
+		int l_colorG = 0;
 		for(int i = 0; i < script_master.length ; i++){
 			if(script_master[i].getTyp().equals("on_load") ){
 				l_ScriptOL++;
@@ -201,18 +202,19 @@ public class Level{
 			if(script_master[i].getTyp().equals("on_timer") ){
 				l_ScriptOTI++;
 			}
-			if(script_master[i].getTyp().equals("render") ){
-				l_ScriptR++;
+			if(script_master[i].getTyp().equals("color_gradient") ){
+				l_colorG++;
 			}
 		}
+		
 		script_onload = new ScriptOnLoad[l_ScriptOL];
 		script_ontouch = new ScriptOnTouch[l_ScriptOTO];
 		script_ontimer = new ScriptOnTimer[l_ScriptOTI];
-		script_render = new ScriptRender[l_ScriptR];
+		renderGradient = new RenderColorGradient[l_colorG];
 		l_ScriptOL = 0;
 		l_ScriptOTO = 0;
 		l_ScriptOTI = 0;
-		 l_ScriptR = 0;
+		l_colorG = 0;
 		for(int i = 0; i < script_master.length ; i++){
 			if(script_master[i].getTyp().equals("on_load") ){
 				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
@@ -226,9 +228,9 @@ public class Level{
 				script_ontimer[l_ScriptOTI] =  new ScriptOnTimer (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
 				l_ScriptOTI++;
 			}
-			if(script_master[i].getTyp().equals("render") ){
-				script_render[l_ScriptR] =  new ScriptRender (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
-				l_ScriptR++;
+			if(script_master[i].getTyp().equals("color_gradient") ){
+				renderGradient[l_colorG] = new RenderColorGradient(script_master[i].getContent(), game);
+				l_colorG++;
 			}
 		}
 		script_master = null;

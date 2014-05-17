@@ -78,9 +78,6 @@ public class Script{
 				for(int ii = 0; ii < game.getLevel().script_ontimer.length; ii++){
 					game.getLevel().script_ontimer[ii].load();
 				}
-				for(int ii = 0; ii < game.getLevel().script_render.length; ii++){
-					game.getLevel().script_render[ii].load();
-				}
 			}
 			if(commando[i].contains("teleport_player")){
 				float l_x = Float.parseFloat(commando[i].split(" ")[1]);

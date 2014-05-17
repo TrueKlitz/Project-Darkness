@@ -158,11 +158,11 @@
     <property name="1" value="load_level test"/>
    </properties>
   </object>
-  <object name="lake_render" type="render" x="442" y="505" width="174" height="110">
+  <object name="lake_render" type="color_gradient" x="448" y="512" width="32" height="32">
    <properties>
-    <property name="color_new" value="gradient"/>
-    <property name="color_old" value="blue"/>
-    <property name="render_typ" value="type color_change"/>
+    <property name="color_new" value="new 0 0 1.0"/>
+    <property name="color_old" value="old 0 0 1.0"/>
+    <property name="texture" value="texture lake_gradient"/>
    </properties>
   </object>
   <object name="changespeed 20" type="on_touch" x="224" y="384" width="32" height="32">

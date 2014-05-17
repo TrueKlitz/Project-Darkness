@@ -96,6 +96,9 @@ public class Render{
 	private void PostProcess(){
 
 		tPostProcess = fBuffer.getColorBufferTexture();
+		for(int i = 0 ; i < game.getLevel().renderGradient.length;i++){
+			tPostProcess = game.getLevel().renderGradient[i].render(tPostProcess);
+		}
 		batch.begin();
 			batch.draw(tPostProcess, 0, 0, tPostProcess.getWidth(), tPostProcess.getHeight(), 0, 0, game.getW(), game.getH(), false, true);
 		batch.end();
