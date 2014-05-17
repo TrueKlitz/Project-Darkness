@@ -13,7 +13,7 @@ public class Level{
 	XmlReader reader = new XmlReader();
 	
 	private int width,height;
-	private PlayGod playgod;
+	private Game game;
 
 	public String tileset;
 	public short[][] layer1;
@@ -30,8 +30,8 @@ public class Level{
 	/*
 	 *Minimale Levelgröße : 32x32 ,damit Kamera richtig funktioniert!
 	 */
-	public Level(PlayGod playgod_){
-		playgod = playgod_;
+	public Level(Game game_){
+		game = game_;
 	}
 	
 	public void load(String level){
@@ -172,15 +172,15 @@ public class Level{
 			for(int i = 0; i < scripts.getChildCount();i++){
 				Element l_script = scripts.getChild(i);
 				Rectangle r_ = new Rectangle();
-				r_.x = l_script.getIntAttribute("x") / (PlayGod.TILESIZE * 1.0f);
-				r_.y = l_script.getIntAttribute("y") /(PlayGod.TILESIZE * 1.0f);
-				r_.width = l_script.getIntAttribute("width") / (PlayGod.TILESIZE * 1.0f);
-				r_.height = l_script.getIntAttribute("height") / (PlayGod.TILESIZE * 1.0f);
+				r_.x = l_script.getIntAttribute("x") / (Game.TILESIZE * 1.0f);
+				r_.y = l_script.getIntAttribute("y") /(Game.TILESIZE * 1.0f);
+				r_.width = l_script.getIntAttribute("width") / (Game.TILESIZE * 1.0f);
+				r_.height = l_script.getIntAttribute("height") / (Game.TILESIZE * 1.0f);
 				String content = "";
 				for(int ii = 0;ii < l_script.getChildByName("properties").getChildCount();ii++){
 					content = content + l_script.getChildByName("properties").getChild(ii).getAttribute("value") + ";";
 				}
-				script_master[i] = new Script( r_ , l_script.getAttribute("name"), l_script.getAttribute("type"), content , playgod);
+				script_master[i] = new Script( r_ , l_script.getAttribute("name"), l_script.getAttribute("type"), content , game);
 			}
 			
 		} catch (IOException e) {
@@ -215,19 +215,19 @@ public class Level{
 		 l_ScriptR = 0;
 		for(int i = 0; i < script_master.length ; i++){
 			if(script_master[i].getTyp().equals("on_load") ){
-				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
+				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
 				l_ScriptOL++;
 			}
 			if(script_master[i].getTyp().equals("on_touch") ){
-				script_ontouch[l_ScriptOTO] =  new ScriptOnTouch (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
+				script_ontouch[l_ScriptOTO] =  new ScriptOnTouch (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
 				l_ScriptOTO++;
 			}
 			if(script_master[i].getTyp().equals("on_timer") ){
-				script_ontimer[l_ScriptOTI] =  new ScriptOnTimer (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
+				script_ontimer[l_ScriptOTI] =  new ScriptOnTimer (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
 				l_ScriptOTI++;
 			}
 			if(script_master[i].getTyp().equals("render") ){
-				script_render[l_ScriptR] =  new ScriptRender (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), playgod);
+				script_render[l_ScriptR] =  new ScriptRender (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
 				l_ScriptR++;
 			}
 		}

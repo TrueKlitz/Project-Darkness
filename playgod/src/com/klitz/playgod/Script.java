@@ -44,14 +44,14 @@ public class Script{
 	private String typ;
 	private String content;
 	
-	public PlayGod playgod;
+	public Game game;
 	
-	public Script(Rectangle position_,String name_, String typ_,String content_,PlayGod playgod_) {
+	public Script(Rectangle position_,String name_, String typ_,String content_,Game game_) {
 		position = position_;
 		name = name_;
 		typ = typ_;
 		content = content_;
-		playgod = playgod_;
+		game = game_;
 	}
 	
 	public void runScript(String[] commando){
@@ -69,27 +69,27 @@ public class Script{
 			}
 			if(commando[i].contains("load_level")){
 				String l_level = "data/level/"+ commando[i].split(" ")[1] +".tmx";
-				playgod.getLevel().load(l_level);
-				playgod.getTextures().loadTiles(playgod.getLevel().tileset);
-				playgod.getLevel().load_collision(playgod.getTextures().rTileCollision);
-				for(int ii = 0; ii < playgod.getLevel().script_onload.length; ii++){
-					playgod.getLevel().script_onload[ii].execute();
+				game.getLevel().load(l_level);
+				game.getTextures().loadTiles(game.getLevel().tileset);
+				game.getLevel().load_collision(game.getTextures().rTileCollision);
+				for(int ii = 0; ii < game.getLevel().script_onload.length; ii++){
+					game.getLevel().script_onload[ii].execute();
 				}
-				for(int ii = 0; ii < playgod.getLevel().script_ontimer.length; ii++){
-					playgod.getLevel().script_ontimer[ii].load();
+				for(int ii = 0; ii < game.getLevel().script_ontimer.length; ii++){
+					game.getLevel().script_ontimer[ii].load();
 				}
-				for(int ii = 0; ii < playgod.getLevel().script_render.length; ii++){
-					playgod.getLevel().script_render[ii].load();
+				for(int ii = 0; ii < game.getLevel().script_render.length; ii++){
+					game.getLevel().script_render[ii].load();
 				}
 			}
 			if(commando[i].contains("teleport_player")){
 				float l_x = Float.parseFloat(commando[i].split(" ")[1]);
 				float l_y = Float.parseFloat(commando[i].split(" ")[1]);
-				playgod.getPlayer().setPositionX( l_x );
-				playgod.getPlayer().setPositionY( l_y );
+				game.getPlayer().setPositionX( l_x );
+				game.getPlayer().setPositionY( l_y );
 			}
 			if(commando[i].contains("gamespeed")){
-				PlayGod.setTICKSPERSECOND( Integer.parseInt( commando[i].split(" ")[1] ));
+				Game.setTICKSPERSECOND( Integer.parseInt( commando[i].split(" ")[1] ));
 			}
 		}
 	}

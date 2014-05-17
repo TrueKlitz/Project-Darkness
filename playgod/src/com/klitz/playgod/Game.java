@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class PlayGod implements ApplicationListener {
+public class Game implements ApplicationListener {
 
 	private SpriteBatch batch;
 	

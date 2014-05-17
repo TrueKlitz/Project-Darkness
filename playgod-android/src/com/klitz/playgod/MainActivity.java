@@ -14,6 +14,6 @@ public class MainActivity extends AndroidApplication {
         cfg.useGL20 = false;
         cfg.hideStatusBar = true;
         
-        initialize(new PlayGod(), cfg);
+        initialize(new Game(), cfg);
     }
 }

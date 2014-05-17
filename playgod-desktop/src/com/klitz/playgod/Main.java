@@ -15,6 +15,6 @@ public class Main {
 		cfg.backgroundFPS = 0; // Setting to 0 disables background fps throttling
 		// 20 * 11.25 = 225 Tiles die angezeigt werden (mehr möglich bei ungeraden Koordianten ! )
 		
-		new LwjglApplication(new PlayGod(), cfg);
+		new LwjglApplication(new Game(), cfg);
 	}
 }

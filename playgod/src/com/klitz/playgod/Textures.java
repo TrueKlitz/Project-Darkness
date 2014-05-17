@@ -25,7 +25,7 @@ public class Textures {
 	
 	public Textures(){
 		
-		tilesize = PlayGod.getTILESIZE();
+		tilesize = Game.getTILESIZE();
 	}
 	
 	public void load(){

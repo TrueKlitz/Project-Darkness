@@ -8,27 +8,27 @@ public class Player extends Animator{
 	private float positionX,positionY;
 	private float movementSpeed = 3.0f;
 	private int height = 0;
-	private PlayGod playgod;
+	private Game game;
 
 
 	private int movementState;
 	
-	public Player(float posx,float posy, Texture playertexture, PlayGod playgod_){
+	public Player(float posx,float posy, Texture playertexture, Game game_){
 		super(playertexture , 32 , 48, 2);
 		positionX = posx;
 		positionY = posy;
 		texture = playertexture;
-		playgod = playgod_;
+		game = game_;
 	} 
 	
 	public void AnimationUpdate(){
 		
 		this.animSpeed = (int)(9/movementSpeed);
-		if( playgod.getInput().iskDown() ){this.setAnimationState(0);isAnimating = true;} 
-		if( playgod.getInput().iskRight() ){this.setAnimationState(2);isAnimating = true;} 
-		if( playgod.getInput().iskLeft() ){this.setAnimationState(1);isAnimating = true;}
-		if( playgod.getInput().iskUp() ){this.setAnimationState(3);isAnimating = true;}
-		if(!playgod.getInput().iskDown() && !playgod.getInput().iskUp() && !playgod.getInput().iskLeft() && !playgod.getInput().iskRight()){ isAnimating = false; } 
+		if( game.getInput().iskDown() ){this.setAnimationState(0);isAnimating = true;} 
+		if( game.getInput().iskRight() ){this.setAnimationState(2);isAnimating = true;} 
+		if( game.getInput().iskLeft() ){this.setAnimationState(1);isAnimating = true;}
+		if( game.getInput().iskUp() ){this.setAnimationState(3);isAnimating = true;}
+		if(!game.getInput().iskDown() && !game.getInput().iskUp() && !game.getInput().iskLeft() && !game.getInput().iskRight()){ isAnimating = false; } 
 		
 		this.setTextureRegion();
 	}
@@ -90,11 +90,11 @@ public class Player extends Animator{
 			for(int y = l_playerNewYToInt -2 ;y <= l_playerNewYToInt + 2  ; y++){
 				if(x >= 0 && x < level.getHeight() && y >= 0 && x < level.getWidth() ){
 					if( 
-						playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, 
+						game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, 
 						x +0.0f, y +0.0f, x + 1.0f , y +1.0f )
 					){
 						if((level.collision[x][y] == 1)){
-							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x + 0.25f, y + 0.25f, x + 0.75f , y + 0.75f )){
+							if( game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x + 0.25f, y + 0.25f, x + 0.75f , y + 0.75f )){
 								can_move = false;
 							}
 						}
@@ -102,22 +102,22 @@ public class Player extends Animator{
 							can_move = false;
 						}
 						if((level.collision[x][y] == 5)){
-							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.75f, x + 1.0f , y + 0.85f )){
+							if( game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.75f, x + 1.0f , y + 0.85f )){
 								can_move = false;
 							}
 						}
 						if((level.collision[x][y] == 6)){
-							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.0f, x + 1.0f , y + 0.25f )){
+							if( game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.0f, x + 1.0f , y + 0.25f )){
 								can_move = false;
 							}
 						}
 						if((level.collision[x][y] == 7)){
-							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.0f, x + 0.25f , y + 1.0f )){
+							if( game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x +0.0f, y + 0.0f, x + 0.25f , y + 1.0f )){
 								can_move = false;
 							}
 						}
 						if((level.collision[x][y] == 8)){
-							if( playgod.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x + 0.75f, y + 0.0f, x + 1.0f , y + 1.0f )){
+							if( game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, x + 0.75f, y + 0.0f, x + 1.0f , y + 1.0f )){
 								can_move = false;
 							}
 						}
