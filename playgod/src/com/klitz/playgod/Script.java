@@ -63,7 +63,6 @@ public class Script{
 		 * "gamespeed [tickspersecond]" changes game speed 
 		 */
 		for(int i = 0; i < commando.length;i++){
-			Gdx.app.log(""+this, commando[i] +  " ");
 			if(commando[i].contains("if")){
 				
 			}
@@ -78,6 +77,9 @@ public class Script{
 				for(int ii = 0; ii < game.getLevel().script_ontimer.length; ii++){
 					game.getLevel().script_ontimer[ii].load();
 				}
+				for(int ii = 0; ii < game.getLevel().script_ontouch.length; ii++){
+					game.getLevel().script_ontouch[i].load();
+				}
 			}
 			if(commando[i].contains("teleport_player")){
 				float l_x = Float.parseFloat(commando[i].split(" ")[1]);
@@ -87,6 +89,21 @@ public class Script{
 			}
 			if(commando[i].contains("gamespeed")){
 				Game.setTICKSPERSECOND( Integer.parseInt( commando[i].split(" ")[1] ));
+			}
+			if(commando[i].contains("change_tile")){
+				String[] l_comando = commando[i].split(" ");
+					if(l_comando[1].equals("1")){
+						game.getLevel().layer1[(int) position.x ][(int) position.y ] = (short) (Integer.parseInt(l_comando[2]));
+					}
+					if(l_comando[1].equals("2")){
+						game.getLevel().layer2[(int) position.x ][(int) position.y ] = (short) (Integer.parseInt(l_comando[2]));
+					}
+					if(l_comando[1].equals("3")){
+						game.getLevel().layer3[(int) position.x ][(int) position.y ] = (short) (Integer.parseInt(l_comando[2]));
+					}
+					if(l_comando[1].equals("4")){
+						game.getLevel().layer4[(int) position.x ][(int) position.y ] = (short) (Integer.parseInt(l_comando[2]));
+					}
 			}
 		}
 	}

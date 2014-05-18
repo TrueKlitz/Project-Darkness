@@ -17,7 +17,7 @@
 34,34,34,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,49,66,34,34,34,34,34,
 34,34,65,51,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,49,66,34,34,34,34,
 34,34,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,33,34,34,34,34,
-34,34,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,33,34,34,34,34,
+34,34,35,1,1,1,1,1,1,1,1,1,1,69,1,1,1,1,1,1,1,1,1,1,1,1,1,33,34,34,34,34,
 34,34,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,33,34,34,34,34,
 34,34,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,33,34,34,34,34,
 34,34,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,33,34,34,34,34,
@@ -158,6 +158,265 @@
     <property name="color_new" value="new 0.4 0 0.0"/>
     <property name="color_old" value="old 0.0 0.0 1.0"/>
     <property name="texture" value="texture lake_gradient"/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_timer" x="416" y="384" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 69"/>
+    <property name="2" value="false"/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="416" y="544" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="352" y="544" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="384" y="544" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="448" y="544" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="480" y="544" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="512" y="544" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="512" y="576" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="480" y="576" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="448" y="576" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="416" y="576" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="384" y="576" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="352" y="576" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="448" y="608" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="352" y="608" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="512" y="608" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="416" y="640" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="352" y="640" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="480" y="640" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="480" y="608" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="512" y="640" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="448" y="640" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="384" y="608" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="416" y="608" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="384" y="640" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="448" y="672" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="352" y="672" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="512" y="672" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="416" y="704" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="352" y="704" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="480" y="704" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="480" y="672" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="512" y="704" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="448" y="704" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="384" y="672" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="416" y="672" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
+   </properties>
+  </object>
+  <object name="change_tile" type="on_touch" x="384" y="704" width="32" height="32">
+   <properties>
+    <property name="0" value="1"/>
+    <property name="1" value="change_tile 1 83"/>
+    <property name="2" value=""/>
    </properties>
   </object>
  </objectgroup>
