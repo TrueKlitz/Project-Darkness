@@ -49,16 +49,18 @@ public class RenderColorGradient {
 		shader.setUniformf("u_oldcolor", oldColor.r, oldColor.g, oldColor.b, 1.0f);
 		shader.setUniformf("u_newcolor", newColor.r, newColor.g, newColor.b, 1.0f);
 		shader.setUniformf("u_noise", (MathUtils.sin(game.getLastTime()) + 1.0f) / 2.0f);
+		shader.setUniformi("u_texture1", 2);
 		shader.end();
-		//Gdx.gl20.glBindTexture(GL20.GL_TEXTURE_2D , tGradient.getTextureObjectHandle());
-		//Gdx.gl20.glTexImage2D(GL20.GL_TEXTURE_2D , tGradient.getTextureObjectHandle(), GL20.GL_RGBA, tGradient.getWidth(), tGradient.getHeight(), GL20.GL_RGBA, GL20.GL_UNSIGNED_BYTE, 0, tGradient.g);
+		
+		Gdx.gl20.glActiveTexture(GL20.GL_TEXTURE2);
+		tGradient.bind();
+		Gdx.gl20.glActiveTexture(GL20.GL_TEXTURE0);
+	
+
 		fBuffer = new FrameBuffer(Format.RGBA8888, game.getW(), game.getH(), false);
 	}
 
 	public Texture render(Texture renderSpace){
-		
-		
-		
 		fBuffer.begin();
 			sB.begin();
 			sB.draw(renderSpace, 0, 0, renderSpace.getWidth(), renderSpace.getHeight(), 0, 0, game.getW(), game.getH(), false, true);
@@ -70,6 +72,7 @@ public class RenderColorGradient {
 	public void tickUpdate(){
 		shader.begin();
 			shader.setUniformf("u_noise", (float) Math.sin(game.getLastTime()), (float) Math.tan(game.getLastTime()), (float) Math.cos(game.getLastTime()) );
+			shader.setUniformf("u_cameraPos", game.getCamera().getCamPosX() / 32, game.getCamera().getCamPosY() / 32);
 		shader.end();
 	}
 }
