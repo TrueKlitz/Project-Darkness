@@ -167,6 +167,9 @@ public class Game implements ApplicationListener {
 		for(int i = 0; i < level.script_ontimer.length; i++){
 			level.script_ontimer[i].execute();
 		}
+		for(int i = 0; i < level.renderGradient.length; i++){
+			level.renderGradient[i].tickUpdate();
+		}
 		player.AnimationUpdate();
 	}
 	@Override

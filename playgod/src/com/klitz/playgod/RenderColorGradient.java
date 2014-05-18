@@ -2,10 +2,14 @@ package com.klitz.playgod;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
+
 
 public class RenderColorGradient {
 	
@@ -13,11 +17,12 @@ public class RenderColorGradient {
 	Color newColor;
 	Texture tGradient;
 	Game game;
+	ShaderProgram shader;
+	SpriteBatch sB;
+	FrameBuffer fBuffer;
 	
+    
 	public RenderColorGradient (String content ,Game game_){
-		/*oldColor = oldColor_;
-		newColor = newColor_;
-		tGradient = tGradient_;*/
 		game = game_;
 		
 		String[] l_content = content.split(";");
@@ -35,16 +40,36 @@ public class RenderColorGradient {
 			}
 			
 		}
+		sB = new SpriteBatch();
+		ShaderProgram.pedantic = false;
+		shader = new ShaderProgram(Gdx.files.internal("shaders/color_gradient.vsh"),Gdx.files.internal("shaders/color_gradient.fsh"));
+		Gdx.app.log(""+this, shader.isCompiled() ? " shader is compiled" : shader.getLog());
+		sB.setShader(shader);
+		shader.begin();
+		shader.setUniformf("u_oldcolor", oldColor.r, oldColor.g, oldColor.b, 1.0f);
+		shader.setUniformf("u_newcolor", newColor.r, newColor.g, newColor.b, 1.0f);
+		shader.setUniformf("u_noise", (MathUtils.sin(game.getLastTime()) + 1.0f) / 2.0f);
+		shader.end();
+		//Gdx.gl20.glBindTexture(GL20.GL_TEXTURE_2D , tGradient.getTextureObjectHandle());
+		//Gdx.gl20.glTexImage2D(GL20.GL_TEXTURE_2D , tGradient.getTextureObjectHandle(), GL20.GL_RGBA, tGradient.getWidth(), tGradient.getHeight(), GL20.GL_RGBA, GL20.GL_UNSIGNED_BYTE, 0, tGradient.g);
+		fBuffer = new FrameBuffer(Format.RGBA8888, game.getW(), game.getH(), false);
 	}
+
 	public Texture render(Texture renderSpace){
-		Texture primary = renderSpace;
-		TextureData tD = primary.getTextureData();
-		for(int x = 0; x < primary.getWidth();x++){
-			for(int y = 0; y < primary.getWidth();y++){
-				
-			}
-		}
 		
-		return primary;
+		
+		
+		fBuffer.begin();
+			sB.begin();
+			sB.draw(renderSpace, 0, 0, renderSpace.getWidth(), renderSpace.getHeight(), 0, 0, game.getW(), game.getH(), false, true);
+			sB.end();
+		fBuffer.end();
+		
+		return fBuffer.getColorBufferTexture();
+	}
+	public void tickUpdate(){
+		shader.begin();
+			shader.setUniformf("u_noise", (float) Math.sin(game.getLastTime()), (float) Math.tan(game.getLastTime()), (float) Math.cos(game.getLastTime()) );
+		shader.end();
 	}
 }

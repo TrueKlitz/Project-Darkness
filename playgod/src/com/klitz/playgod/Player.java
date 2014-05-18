@@ -89,7 +89,7 @@ public class Player extends Animator{
 			for(int y = l_playerNewYToInt -2 ;y <= l_playerNewYToInt + 2  ; y++){
 				if(x >= 0 && x < level.getHeight() && y >= 0 && x < level.getWidth() ){
 					if( 
-						game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.05f, 
+						game.boxCollision(l_playerNewX + 0.1f, l_playerNewY - 0.5f, l_playerNewX + 0.9f, l_playerNewY -0.01f, 
 						x +0.0f, y +0.0f, x + 1.0f , y +1.0f )
 					){
 						if((level.collision[x][y] == 1)){
