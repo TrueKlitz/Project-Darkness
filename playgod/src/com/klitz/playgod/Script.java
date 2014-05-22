@@ -1,6 +1,5 @@
 package com.klitz.playgod;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Script{
@@ -67,19 +66,7 @@ public class Script{
 				
 			}
 			if(commando[i].contains("load_level")){
-				String l_level = "data/level/"+ commando[i].split(" ")[1] +".tmx";
-				game.getLevel().load(l_level);
-				game.getTextures().loadTiles(game.getLevel().tileset);
-				game.getLevel().load_collision(game.getTextures().rTileCollision);
-				for(int ii = 0; ii < game.getLevel().script_onload.length; ii++){
-					game.getLevel().script_onload[ii].execute();
-				}
-				for(int ii = 0; ii < game.getLevel().script_ontimer.length; ii++){
-					game.getLevel().script_ontimer[ii].load();
-				}
-				for(int ii = 0; ii < game.getLevel().script_ontouch.length; ii++){
-					game.getLevel().script_ontouch[i].load();
-				}
+				game.load_level(commando[i].split(" ")[1]);
 			}
 			if(commando[i].contains("teleport_player")){
 				float l_x = Float.parseFloat(commando[i].split(" ")[1]);

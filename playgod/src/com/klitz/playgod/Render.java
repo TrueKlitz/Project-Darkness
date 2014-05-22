@@ -17,6 +17,7 @@ public class Render{
 	}
 	public void draw(){
 
+		
 		fBuffer.begin();
 		batch.begin();
 		for(int x = 0 ;x < game.getLevel().getWidth() ; x++){

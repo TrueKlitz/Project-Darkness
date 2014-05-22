@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -37,6 +38,7 @@ public class RenderColorGradient {
 			}
 			if(l_content[i].contains("texture")){
 				tGradient = new Texture(Gdx.files.internal("data/textures/"+ game.getLevel().tileset + "/" + l_content[i].split(" ")[1] + ".png"));
+				tGradient.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 			}
 			
 		}
@@ -69,10 +71,18 @@ public class RenderColorGradient {
 		
 		return fBuffer.getColorBufferTexture();
 	}
+	float test;
+	float last_camPosX,last_camPosY;
 	public void tickUpdate(){
+		test += 0.00f;
+		if(test > 1.0f){
+			test = 0.0f;
+		}
+		
 		shader.begin();
-			shader.setUniformf("u_noise", (float) Math.sin(game.getLastTime()), (float) Math.tan(game.getLastTime()), (float) Math.cos(game.getLastTime()) );
-			shader.setUniformf("u_cameraPos", game.getCamera().getCamPosX() / 32, game.getCamera().getCamPosY() / 32);
+			shader.setUniformf("u_cameraPos", test + -(last_camPosX  - game.getCamera().getCamPosX()) ,   -(last_camPosY - game.getCamera().getCamPosY()) );
 		shader.end();
+		last_camPosX = game.getCamera().getCamPosX();
+		last_camPosY = game.getCamera().getCamPosY();
 	}
 }

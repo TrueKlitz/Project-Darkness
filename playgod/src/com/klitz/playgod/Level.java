@@ -27,6 +27,7 @@ public class Level{
 	public ScriptOnTimer[] script_ontimer;
 	
 	public RenderColorGradient[] renderGradient;
+	public RenderFieldAnimation[] renderFieldAnim;
 
 	/*
 	 *Minimale Levelgröße : 32x32 ,damit Kamera richtig funktioniert!
@@ -192,6 +193,7 @@ public class Level{
 		int l_ScriptOTO = 0;
 		int l_ScriptOTI = 0;
 		int l_colorG = 0;
+		int l_fieldanim = 0;
 		for(int i = 0; i < script_master.length ; i++){
 			if(script_master[i].getTyp().equals("on_load") ){
 				l_ScriptOL++;
@@ -205,6 +207,9 @@ public class Level{
 			if(script_master[i].getTyp().equals("color_gradient") ){
 				l_colorG++;
 			}
+			if(script_master[i].getTyp().equals("field_animation") ){
+				l_fieldanim++;
+			}
 		}
 		
 		script_onload = new ScriptOnLoad[l_ScriptOL];
@@ -215,6 +220,7 @@ public class Level{
 		l_ScriptOTO = 0;
 		l_ScriptOTI = 0;
 		l_colorG = 0;
+		l_fieldanim = 0;
 		for(int i = 0; i < script_master.length ; i++){
 			if(script_master[i].getTyp().equals("on_load") ){
 				script_onload[l_ScriptOL] = new ScriptOnLoad (script_master[i].getPosition(),script_master[i].getName(),script_master[i].getTyp(),script_master[i].getContent(), game);
@@ -231,6 +237,10 @@ public class Level{
 			if(script_master[i].getTyp().equals("color_gradient") ){
 				renderGradient[l_colorG] = new RenderColorGradient(script_master[i].getContent(), game);
 				l_colorG++;
+			}
+			if(script_master[i].getTyp().equals("field_animation") ){
+				renderFieldAnim[l_fieldanim] = new RenderFieldAnimation(script_master[i].getContent(), game);
+				l_fieldanim++;
 			}
 		}
 		script_master = null;

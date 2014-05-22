@@ -28,12 +28,11 @@ public class Game implements ApplicationListener {
 	private long lastTime;
 	private double deltaTime;
 	private double consoleUpdate;
-	private double l_gametick;
+	private double gametick;
 	
 
 	@Override
 	public void create() {
-		
 		lastTime = System.nanoTime();
 		
 		w = Gdx.graphics.getWidth();
@@ -41,32 +40,17 @@ public class Game implements ApplicationListener {
 
 		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
 		
-		
 		textures = new Textures();
 		level = new Level(this);
 		camera = new Camera(0,0);
 		input = new Input(Gdx.app.getType(), this);
 		batch = new SpriteBatch();
 		render = new Render(batch, this);
-		level.load("data/level/darkness_index.tmx");
 		
 		textures.load();
-		textures.loadTiles(level.tileset);
-		
-		
 		player = new Player(16.0f,16.0f,textures.tPlayer,this);
-		
-		level.load_collision(textures.rTileCollision);
-		
-		for(int i = 0; i < level.script_onload.length; i++){
-			level.script_onload[i].execute();
-		}
-		for(int i = 0; i < level.script_ontimer.length; i++){
-			level.script_ontimer[i].load();
-		}
-		for(int i = 0; i < level.script_ontouch.length; i++){
-			level.script_ontouch[i].load();
-		}
+		load_level("test");
+
 		GameTick();
 	}
 
@@ -80,8 +64,8 @@ public class Game implements ApplicationListener {
 	@Override
 	public void render() {	
 		DeltaTime();
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		Gdx.gl20.glClearColor(0, 0, 0, 1);
+		Gdx.gl20.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
@@ -111,6 +95,21 @@ public class Game implements ApplicationListener {
 		
 	}
 	
+	public void load_level(String levelname){
+		String l_level = "data/level/"+ levelname +".tmx";
+		level.load(l_level);
+		textures.loadTiles(level.tileset);
+		level.load_collision(textures.rTileCollision);
+		for(int ii = 0; ii < level.script_onload.length; ii++){
+			level.script_onload[ii].execute();
+		}
+		for(int ii = 0; ii < level.script_ontimer.length; ii++){
+			level.script_ontimer[ii].load();
+		}
+		for(int ii = 0; ii < level.script_ontouch.length; ii++){
+			level.script_ontouch[ii].load();
+		}
+	}
 	public boolean boxCollision
 	(
 		float object_1_x, float object_1_y, float object_1_endx, float object_1_endy,
@@ -129,6 +128,7 @@ public class Game implements ApplicationListener {
 			return false;
 		}
 	}
+	
 	public boolean playerCollision
 	(
 		float object_2_x, float object_2_y, float object_2_endx, float object_2_endy
@@ -153,16 +153,17 @@ public class Game implements ApplicationListener {
 		lastTime = System.nanoTime();
 		gameSpeed = (float) (deltaTime * TICKSPERSECOND)/20.0f;
 		consoleUpdate += deltaTime;
-		l_gametick += deltaTime;
+		gametick += deltaTime;
 		if(consoleUpdate >= 1.0){
 			Gdx.app.log(""+this, deltaTime*1000.0 + " ms per frame");;
 			consoleUpdate = 0.0;
 		}
-		if(l_gametick >= (1.0 / TICKSPERSECOND) ){
+		if(gametick >= (1.0 / TICKSPERSECOND) ){
 			GameTick();
-			l_gametick = 0.0;
+			gametick = 0.0;
 		}
 	}
+	
 	private void GameTick(){
 		for(int i = 0; i < level.script_ontouch.length; i++){
 			level.script_ontouch[i].execute();
@@ -175,6 +176,7 @@ public class Game implements ApplicationListener {
 		}
 		player.AnimationUpdate();
 	}
+	
 	@Override
 	public void resize(int width, int height) {
 		w = Gdx.graphics.getWidth();
@@ -313,11 +315,11 @@ public class Game implements ApplicationListener {
 	}
 
 	public double getL_gametick() {
-		return l_gametick;
+		return gametick;
 	}
 
 	public void setL_gametick(double l_gametick) {
-		this.l_gametick = l_gametick;
+		this.gametick = l_gametick;
 	}
 
 	public void setPlayer(Player player) {
