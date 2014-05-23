@@ -58,6 +58,7 @@ public class Game implements ApplicationListener {
 	public void dispose() {
 		batch.dispose();
 		textures.dispose();
+		player.dispose();
 	}
 
 	

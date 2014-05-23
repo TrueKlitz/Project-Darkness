@@ -16,6 +16,7 @@ public class Animator {
 	Texture texture;
 	int tileHeight, tileWidth, animSpeed, currentAnimSpeed, currentAnimState;
 	boolean isAnimating;
+	
 	public Animator(Texture texture_ , int height_ , int width_, int animSpeed_){
 		texture = texture_;
 		tileHeight = height_;
@@ -46,5 +47,9 @@ public class Animator {
 		if(!isAnimating){
 			tRegion = new TextureRegion(this.texture , 0 , tileWidth * animationState , tileHeight, tileWidth);
 		}
+	}
+	
+	public void dispose(){
+		texture.dispose();
 	}
 }
