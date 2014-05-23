@@ -22,8 +22,10 @@ public class Game implements ApplicationListener {
 	protected static int TILESIZE = 32;
 	
 	private int w;
-
 	private int h;
+	private float renderQuality = 1.0f; // Must be between 1 and 2 ( 1 = best , 2 = worst)
+	
+	
 	private float scale;
 	private long lastTime;
 	private double deltaTime;
@@ -35,10 +37,10 @@ public class Game implements ApplicationListener {
 	public void create() {
 		lastTime = System.nanoTime();
 		
-		w = Gdx.graphics.getWidth();
-		h = Gdx.graphics.getHeight();
+		w =(int) (1280 / renderQuality);
+		h =(int) (720 / renderQuality ) ;
 
-		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
+		scale = (w/VIEWDISTANCE)/TILESIZE;
 		
 		textures = new Textures();
 		level = new Level(this);
@@ -61,16 +63,14 @@ public class Game implements ApplicationListener {
 		player.dispose();
 	}
 
-	
+	int test;
 	@Override
 	public void render() {	
+		test++;
 		DeltaTime();
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		w = Gdx.graphics.getWidth();
-		h = Gdx.graphics.getHeight();
-		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
+		scale = (w/VIEWDISTANCE)/TILESIZE;
 		
 		//Updates
 		camera.update( (int) ( player.getPositionX()*TILESIZE*scale -  (w/2 - 32) ), (int) ( player.getPositionY()*TILESIZE*scale - (h/2 + 48)),
@@ -180,9 +180,7 @@ public class Game implements ApplicationListener {
 	
 	@Override
 	public void resize(int width, int height) {
-		w = Gdx.graphics.getWidth();
-		h = Gdx.graphics.getHeight();
-		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
+		scale = (w/VIEWDISTANCE)/TILESIZE;
 		batch = new SpriteBatch();
 		render.onResize();
 	}
@@ -337,5 +335,13 @@ public class Game implements ApplicationListener {
 
 	public static void setTILESIZE(int tILESIZE) {
 		TILESIZE = tILESIZE;
+	}
+
+	public float getRenderQuality() {
+		return renderQuality;
+	}
+
+	public void setRenderQuality(float renderQuality) {
+		this.renderQuality = renderQuality;
 	}
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -59,13 +60,15 @@ public class RenderColorGradient {
 		Gdx.gl20.glActiveTexture(GL20.GL_TEXTURE0);
 	
 
-		fBuffer = new FrameBuffer(Format.RGBA8888, game.getW(), game.getH(), false);
+		fBuffer = new FrameBuffer(Format.RGB565, game.getW() , game.getH() , false);
+		fBuffer.getColorBufferTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 
 	public Texture render(Texture renderSpace){
+		
 		fBuffer.begin();
 			sB.begin();
-			sB.draw(renderSpace, 0, 0, renderSpace.getWidth(), renderSpace.getHeight(), 0, 0, game.getW(), game.getH(), false, true);
+			sB.draw(renderSpace, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight() , 0, 0, game.getW(), game.getH(), false, true);
 			sB.end();
 		fBuffer.end();
 		
@@ -80,7 +83,7 @@ public class RenderColorGradient {
 		}
 		
 		shader.begin();
-			shader.setUniformf("u_cameraPos", test + -(last_camPosX  - game.getCamera().getCamPosX()) ,   -(last_camPosY - game.getCamera().getCamPosY()) );
+			shader.setUniformf("u_cameraPos", test + -(last_camPosX  - game.getCamera().getCamPosX()) ,  -(last_camPosY - game.getCamera().getCamPosY()) );
 		shader.end();
 		last_camPosX = game.getCamera().getCamPosX();
 		last_camPosY = game.getCamera().getCamPosY();

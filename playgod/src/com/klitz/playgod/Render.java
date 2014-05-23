@@ -1,7 +1,9 @@
 package com.klitz.playgod;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
@@ -13,7 +15,8 @@ public class Render{
 	public Render(SpriteBatch batch_, Game game_){
 		batch = batch_;
 		game = game_;
-		fBuffer = new FrameBuffer(Format.RGBA8888, game.getW(), game.getH(), false);
+		fBuffer = new FrameBuffer(Format.RGB565,(int) (game.getW()) ,(int) (game.getH()), false);
+		fBuffer.getColorBufferTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 	public void draw(){
 
@@ -100,8 +103,9 @@ public class Render{
 		for(int i = 0 ; i < game.getLevel().renderGradient.length;i++){
 			tPostProcess = game.getLevel().renderGradient[i].render(tPostProcess);
 		}
+		tPostProcess.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		batch.begin();
-			batch.draw(tPostProcess, 0, 0, tPostProcess.getWidth(), tPostProcess.getHeight(), 0, 0, game.getW(), game.getH(), false, true);
+			batch.draw(tPostProcess, 0, 0, Gdx.graphics.getWidth()  , Gdx.graphics.getHeight() , 0, 0,(int) (game.getW() / game.getRenderQuality() ),(int) (game.getH() / game.getRenderQuality()) , false, true);
 		batch.end();
 	}
 	public void onResize(){
