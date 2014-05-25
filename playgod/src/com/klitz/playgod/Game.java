@@ -37,10 +37,10 @@ public class Game implements ApplicationListener {
 	public void create() {
 		lastTime = System.nanoTime();
 		
-		w =(int) (1280 / renderQuality);
-		h =(int) (720 / renderQuality ) ;
+		w =(int) (Gdx.graphics.getWidth() / renderQuality);
+		h =(int) (Gdx.graphics.getHeight() / renderQuality ) ;
 
-		scale = (w/VIEWDISTANCE)/TILESIZE;
+		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
 		
 		textures = new Textures();
 		level = new Level(this);
@@ -51,7 +51,7 @@ public class Game implements ApplicationListener {
 		
 		textures.load();
 		player = new Player(16.0f,16.0f,textures.tPlayer,this);
-		load_level("test");
+		load_level("city");
 
 		GameTick();
 	}
@@ -70,7 +70,7 @@ public class Game implements ApplicationListener {
 		DeltaTime();
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		scale = (w/VIEWDISTANCE)/TILESIZE;
+		scale = (Gdx.graphics.getWidth()/VIEWDISTANCE)/TILESIZE;
 		
 		//Updates
 		camera.update( (int) ( player.getPositionX()*TILESIZE*scale -  (w/2 - 32) ), (int) ( player.getPositionY()*TILESIZE*scale - (h/2 + 48)),

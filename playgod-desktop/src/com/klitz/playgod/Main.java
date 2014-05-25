@@ -12,7 +12,7 @@ public class Main {
 		cfg.fullscreen = false;
 		cfg.width = 1280;// 20 tiles pro Bild |  480*2;
 		cfg.height = 720;// 11.25 tiles pro Bild| 320*2;
-		cfg.vSyncEnabled = false;
+		cfg.vSyncEnabled = true;
 		cfg.foregroundFPS = 0; // Setting to 0 disables foreground fps throttling
 		cfg.backgroundFPS = 0; // Setting to 0 disables background fps throttling
 		// 20 * 11.25 = 225 Tiles die angezeigt werden (mehr möglich bei ungeraden Koordianten ! )

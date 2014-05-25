@@ -22,6 +22,9 @@ public class Render{
 
 		
 		fBuffer.begin();
+		for(int i = 0; i < game.getLevel().renderFieldAnim.length;i++){
+			game.getLevel().renderFieldAnim[i].render();
+		}
 		batch.begin();
 		for(int x = 0 ;x < game.getLevel().getWidth() ; x++){
 			for(int y = 0 ;y < game.getLevel().getHeight() ; y++){
@@ -103,7 +106,7 @@ public class Render{
 		for(int i = 0 ; i < game.getLevel().renderGradient.length;i++){
 			tPostProcess = game.getLevel().renderGradient[i].render(tPostProcess);
 		}
-		tPostProcess.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		tPostProcess.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		batch.begin();
 			batch.draw(tPostProcess, 0, 0, Gdx.graphics.getWidth()  , Gdx.graphics.getHeight() , 0, 0,(int) (game.getW() / game.getRenderQuality() ),(int) (game.getH() / game.getRenderQuality()) , false, true);
 		batch.end();

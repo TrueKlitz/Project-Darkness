@@ -160,13 +160,32 @@
     <property name="texture" value="texture sky"/>
    </properties>
   </object>
-  <object name="water_lake" type="field_animation" x="608" y="416" width="64" height="64">
+  <object name="water_lake" type="field_animation" x="608" y="416" width="32" height="32">
    <properties>
-    <property name="1" value="texture water"/>
-    <property name="2" value="color 0.0 0.0 1.0"/>
-    <property name="3" value="texture2 water2"/>
-    <property name="4" value="color2 0.3 0.3 0.8"/>
-    <property name="5" value="flow 1.0 1.0"/>
+    <property name="1" value="texture1 water"/>
+    <property name="2" value="texture2 water2"/>
+    <property name="3" value="flow 0.01 0.021"/>
+   </properties>
+  </object>
+  <object name="water_lake" type="field_animation" x="640" y="416" width="32" height="32">
+   <properties>
+    <property name="1" value="texture1 water"/>
+    <property name="2" value="texture2 water2"/>
+    <property name="3" value="flow 0.01 0.021"/>
+   </properties>
+  </object>
+  <object name="water_lake" type="field_animation" x="608" y="448" width="32" height="32">
+   <properties>
+    <property name="1" value="texture1 water"/>
+    <property name="2" value="texture2 water2"/>
+    <property name="3" value="flow 0.01 0.021"/>
+   </properties>
+  </object>
+  <object name="water_lake" type="field_animation" x="640" y="448" width="32" height="32">
+   <properties>
+    <property name="1" value="texture1 water"/>
+    <property name="2" value="texture2 water2"/>
+    <property name="3" value="flow 0.01 0.021"/>
    </properties>
   </object>
  </objectgroup>

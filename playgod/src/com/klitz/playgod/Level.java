@@ -216,6 +216,7 @@ public class Level{
 		script_ontouch = new ScriptOnTouch[l_ScriptOTO];
 		script_ontimer = new ScriptOnTimer[l_ScriptOTI];
 		renderGradient = new RenderColorGradient[l_colorG];
+		renderFieldAnim = new RenderFieldAnimation[l_fieldanim];
 		l_ScriptOL = 0;
 		l_ScriptOTO = 0;
 		l_ScriptOTI = 0;
@@ -239,7 +240,7 @@ public class Level{
 				l_colorG++;
 			}
 			if(script_master[i].getTyp().equals("field_animation") ){
-				renderFieldAnim[l_fieldanim] = new RenderFieldAnimation(script_master[i].getContent(), game);
+				renderFieldAnim[l_fieldanim] = new RenderFieldAnimation(script_master[i].getContent(),script_master[i].position, game);
 				l_fieldanim++;
 			}
 		}

@@ -61,7 +61,7 @@ public class RenderColorGradient {
 	
 
 		fBuffer = new FrameBuffer(Format.RGB565, game.getW() , game.getH() , false);
-		fBuffer.getColorBufferTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		fBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 	}
 
 	public Texture render(Texture renderSpace){
